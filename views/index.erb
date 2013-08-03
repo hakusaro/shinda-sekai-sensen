@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Shinda Sekai Sensen, the ShankShock warning system.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ShankShock / Sekai Sensen</title>
+
+        <script src="js/vendor/custom.modernizr.js"></script>
+        <link rel="stylesheet" href="css/foundation.css">
+        <link rel="author" href="humans.txt">
+    </head>
+    <body>
+        <div class="row">
+          <div class="large-12 columns">
+            <img src="img/logo.png" />
+            <hr />
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-10 columns">
+            <p>Hi there! To proceed, you need a PIN. If you're unsure what this is, join Minecraft and write it down.</p>
+          </div>
+          <div class="large-2 columns">
+            <form action="/login/pin/" method="post">
+              <div class="row">
+                <div class="row collapse">
+                  <div class="large-6 columns">
+                    <input type="text" placeholder="1234">
+                  </div>
+                  <div class="large-6 columns">
+                    <input type="submit" class="button prefix" value="Let's go!">
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <script>
+          $(document).foundation();
+        </script>
+        <script>
+          document.write('<script src=/js/vendor/'
+            + ('__proto__' in {} ? 'zepto' : 'jquery')
+            + '.js><\/script>');
+        </script>
+    </body>
+</html>

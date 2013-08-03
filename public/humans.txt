@@ -1,0 +1,9 @@
+Created by Lucas 'Shank' Nicodemus, for ShankShock.
+    http://shanked.me/
+    @nicatronTg
+    shank [at] web
+
+Built lovingly with:
+  * Sinatra
+  * Foundation
+  * Sublime Text 2
