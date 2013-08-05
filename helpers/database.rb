@@ -17,15 +17,14 @@ class WarningDatabase
 
   def has_warning?(pin)
     results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)}'")
-    puts results
+    Formatador.display_table(results)
     if results.count > 0 then
       results.each do |row|
-        if (row[:ack] == 0) then
+        if (row['ack'] == false) then
           return true
-        else
-          return false
         end
       end
+      return false
     else
       return false
     end
