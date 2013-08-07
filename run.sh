@@ -1,2 +1,2 @@
 #!/bin/sh
-rerun ruby app.rb -p $PORT -b $IP
+ruby app.rb -p $PORT -o $IP
