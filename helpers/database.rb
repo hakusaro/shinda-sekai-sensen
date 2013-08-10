@@ -54,10 +54,19 @@ class WarningDatabase
 
   def ack_warning?(id)
     @sql_client.query("UPDATE warnings SET ack=1, pin=null WHERE id=#{id}")
-    if (warning_exists?(id)) then
+    if warning_exists?(id) then
       return false
     else
       return true
+    end
+  end
+
+  def is_admin?(email)
+    results = @sql_client.query("SELECT * FROM admins WHERE email='#{email}'")
+    if results.count > 0 then
+      return true
+    else
+      return false
     end
   end
 end
