@@ -1,9 +1,10 @@
 class WarningDatabase
-  def initialize(username, password, hostname, port)
+  def initialize(username, password, hostname, port, database)
     @username = username
     @password = password
     @hostname = hostname
     @port = port
+    @database = database
   end
 
   def connect
@@ -12,7 +13,7 @@ class WarningDatabase
     :password => @password,
     :port => @port,
     :cast_booleans => true,
-    :database => 'shinda')
+    :database => @database)
   end
 
   def has_warning?(pin)
