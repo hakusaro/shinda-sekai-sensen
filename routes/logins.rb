@@ -1,6 +1,9 @@
 post '/login/pin/?' do
   if (params[:pin]) then
     if (@db.has_warning?(params[:pin])) then
+      if session? then
+        session_end!(true)
+      end
       session_start!
       session[:type] = :warning
       session[:pin] = params[:pin]
@@ -22,10 +25,6 @@ post '/login/pin/?' do
 end
 
 get '/login/pin/?' do
-  redirect to('/')
-end
-
-get '/login/steam/?' do
   redirect to('/')
 end
 
