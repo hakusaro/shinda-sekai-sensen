@@ -11,10 +11,21 @@
         <link rel="author" href="humans.txt">
     </head>
     <body>
-        <nav class="top-bar">
-          <ul class="title-area">
-            <li class="name">
-              <h1><a href="/">ShankShock / Sekai Sensen</a></h1>
-            </li>
-          </ul>
-        </nav>
+        <div class="contain-to-grid">
+            <nav class="top-bar">
+              <ul class="title-area">
+                <ul class="left">
+                  <li class="name">
+                    <h1><a href="/">ShankShock / Sekai Sensen</a></h1>
+                  </li>
+                </ul>
+              </ul>
+              <section class="top-bar-section">
+                <ul class="right">
+                  <li class="divider hide-for-small"></li>
+                  <%= login_state ? "<li class='name'><h1><a href='/backstage'>Backstage</a></h1></li><li class='divider hide-for-small'></li>" : "" %>
+                  <li class="name"><h1><a href="<%= login_state ? "/logout" : "/auth/gplus" %>"><%= login_state ? "Logout" : "Login" %></a></h1></li>
+                </ul>
+              </section>
+            </nav>
+        </div>

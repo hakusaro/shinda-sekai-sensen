@@ -13,12 +13,17 @@ class WarningDatabase
     :password => @password,
     :port => @port,
     :cast_booleans => true,
-    :database => @database)
+    :database => @database,
+    :reconnect => true)
+  end
+
+  def disconnect
+    @sql_client.close
   end
 
   def has_warning?(pin)
     results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)}'")
-    Formatador.display_table(results)
+    # Formatador.display_table(results)
     if results.count > 0 then
       results.each do |row|
         if (row['ack'] == false) then
