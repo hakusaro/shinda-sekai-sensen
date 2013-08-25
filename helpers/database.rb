@@ -107,4 +107,8 @@ VALUES (null, '#{@sql_client.escape(target_name)}', '#{admin_id}', '#{@sql_clien
 VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to_i}', '#{@sql_client.escape(message)}')")
   end
 
+  def add_log_entry(type, aid, msg)
+    @sql_client.query("INSERT INTO logs (id, type, aid, message) VALUES (null, #{type}, #{aid}, '#{msg}')")
+  end
+
 end
