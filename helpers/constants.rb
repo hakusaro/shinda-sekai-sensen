@@ -1,4 +1,4 @@
-log_type = {web_login: 0,
+$log_type = {web_login: 0,
   mc_login: 1,
   ttt_login: 2,
   flag_user: 3,
@@ -9,5 +9,7 @@ log_type = {web_login: 0,
   view_warnings: 8,
   remove_flag: 9,
   remove_warning: 10,
-  logout: 99
+  view_backstage: 11,
+  view_new_warning: 12,
+  web_logout: 99
 }

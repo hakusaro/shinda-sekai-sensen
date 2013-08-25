@@ -39,6 +39,7 @@ get '/auth/gplus/callback/?' do
     session[:steam64] = admin_info['steam64']
     session[:permissions] = admin_info['permissions']
     session[:user_id] = admin_info['id']
+    @db.add_log_entry($log_type[:web_login], session[:user_id], "#{session[:display_name]} logged into Shinda Sekai Sensen.")
     redirect to('/')
   else
     session_end!(true)
@@ -86,6 +87,7 @@ get '/login/unauthorized/?' do
 end
 
 get '/logout/?' do
+  @db.add_log_entry($log_type[:web_logout], session[:user_id], "#{session[:display_name]} logged out of Shinda Sekai Sensen.")
   session_end!(true)
   redirect to('/')
 end
