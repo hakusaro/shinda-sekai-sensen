@@ -5,10 +5,24 @@ get '/' do
   output
 end
 
-get '/test/?' do
-  output = ""
-  output << @header
-  output << partial(:flag_add)
+not_found do
+  output = @header
+  output << partial(:not_found)
   output << partial(:footer)
   output
 end
+
+error do
+  output = @header
+  output << partial(:error)
+  output << partial(:footer)
+  output
+end
+
+# get '/test/?' do
+#   output = ""
+#   output << @header
+#   output << partial(:not_found)
+#   output << partial(:footer)
+#   output
+# end
