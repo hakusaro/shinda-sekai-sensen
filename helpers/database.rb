@@ -102,7 +102,7 @@ VALUES (null, '#{@sql_client.escape(target_name)}', '#{admin_id}', '#{@sql_clien
 '#{Time.now.to_i}', 0, 0, '#{pin}', 'mc')")
   end
 
-  def add_minecraft_flag(type, mojang, aid, message)
+  def add_flag_minecraft(type, mojang, aid, message)
     @sql_client.query("INSERT INTO flags (id, type, mojang, aid, date, message)
 VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to_i}', '#{@sql_client.escape(message)}')")
   end

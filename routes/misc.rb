@@ -8,7 +8,7 @@ end
 get '/test/?' do
   output = ""
   output << @header
-  output << partial(:new_warning)
+  output << partial(:flag_add)
   output << partial(:footer)
   output
 end

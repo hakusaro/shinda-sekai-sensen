@@ -15,7 +15,7 @@ get '/backstage/warn/?' do
 end
 
 get '/backstage/warn/saved/?' do
-  puts session[:warning_target].inspect
+  @db.add_log_entry($log_type[:view_new_warning], session[:user_id], "#{session[:display_name]} viewed the warning creation post error page.")
   output = @header
   output << partial(:new_warning_post, :locals => {
     target_username: session[:warning_target][:name],
@@ -84,6 +84,47 @@ get '/backstage/warn/apply/?' do
     that warning is cleared. Thanks for using Shinda Sekai Sensen.',
     link: '/backstage/',
     link_text: 'Return To Backstage'
+    })
+  output << partial(:footer)
+  output
+end
+
+get '/backstage/flag/?' do
+  @db.add_log_entry($log_type[:view_new_flag], session[:user_id], "#{session[:display_name]} viewed the flag creation page.")
+  output = @header
+  output << partial(:flag_add)
+  output << partial(:footer)
+  output
+end
+
+post '/backstage/flag/apply/?' do
+  target = {name: params[:username], message: params[:admin_note]}
+  session[:flag_target] = target
+  if (target[:name].length < 3 || target[:message].length < 10) then
+    redirect to('/backstage/flag/saved/?')
+  end
+
+  @db.add_log_entry($log_type[:flag_user], session[:user_id], "#{session[:display_name]} flagged #{target[:name]} as malicious.")
+  @db.add_flag_minecraft('direct', target[:name], session[:user_id], target[:message])
+
+  output = @header
+  output << partial(:generic, :locals => {
+    title: 'Flag Added',
+    subhead: '',
+    message: 'The flag was added to the database.',
+    link: '/backstage/',
+    link_text: 'Return To Backstage'
+    })
+  output << partial(:footer)
+  output
+end
+
+get '/backstage/flag/saved/?' do
+  @db.add_log_entry($log_type[:view_new_flag], session[:user_id], "#{session[:display_name]} viewed the flag creation post error page.")
+  output = @header
+  output << partial(:flag_add_post, :locals => {
+    name: session[:flag_target][:name],
+    message: session[:flag_target][:message]
     })
   output << partial(:footer)
   output

@@ -11,5 +11,6 @@ $log_type = {web_login: 0,
   remove_warning: 10,
   view_backstage: 11,
   view_new_warning: 12,
+  view_new_flag: 13,
   web_logout: 99
 }
