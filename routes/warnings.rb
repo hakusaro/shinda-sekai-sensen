@@ -3,16 +3,14 @@ get '/warning/view/?' do
     if (session[:type] == :warning) then
       warning_info = @db.get_warning(session[:pin])
       session[:warning_info] = warning_info
-      puts "Session info: #{session.inspect}"
-      puts "Warning info: #{warning_info.inspect}"
-
       today = Time.now.strftime('%D')
       send_time = Time.at(warning_info['sendtime'].to_i).strftime('%D')
-
+      admin = @db.get_admin_for_id(warning_info['admin'])
+      admin_name = admin['displayname']
       output = ""
       output << @header
       output << partial(:warning, :locals => {
-        admin_name: warning_info['admin'],
+        admin_name: admin_name,
         send_time: send_time,
         access_time: today,
         player_name: warning_info['target'],

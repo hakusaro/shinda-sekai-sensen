@@ -83,6 +83,13 @@ class WarningDatabase
     end
   end
 
+  def get_admin_for_id(id)
+    results = @sql_client.query("SELECT * FROM admins WHERE id='#{id}'")
+    results.each do |row|
+      return row
+    end
+  end
+
   def add_warning_minecraft(target_name, message, admin_note, admin_id)
     pin = Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s
 
