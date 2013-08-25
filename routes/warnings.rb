@@ -1,13 +1,25 @@
 get '/warning/view/?' do
   if (session?) then
     if (session[:type] == :warning) then
-      warning_info = db.get_warning(session[:pin])
+      warning_info = @db.get_warning(session[:pin])
       session[:warning_info] = warning_info
-      return "Warning information: ID: #{warning_info['id']}, 
-      UserID: #{warning_info['userid']}, 
-      EntryDate: #{warning_info['entrydate']}, 
-      Message: #{warning_info['message']}, 
-      Ack: #{warning_info['ack']}"
+      puts "Session info: #{session.inspect}"
+      puts "Warning info: #{warning_info.inspect}"
+
+      today = Time.now.strftime('%D')
+      send_time = Time.at(warning_info['sendtime'].to_i).strftime('%D')
+
+      output = ""
+      output << @header
+      output << partial(:warning, :locals => {
+        admin_name: warning_info['admin'],
+        send_time: send_time,
+        access_time: today,
+        player_name: warning_info['target'],
+        message: markdown(warning_info['message'])
+        })
+      output << partial(:footer)
+      output
     else
       output = ""
       output << @header
@@ -27,7 +39,7 @@ end
 get '/warning/ack/?' do
   if (session?) then
     if (session[:type] == :warning) then
-      if (db.ack_warning?(session[:warning_info]['id'])) then
+      if (@db.ack_warning?(session[:warning_info]['id'])) then
         session_end!(true)
         output = ""
         output << @header

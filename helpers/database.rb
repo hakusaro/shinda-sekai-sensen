@@ -52,7 +52,7 @@ class WarningDatabase
   end
 
   def get_warning(pin)
-    results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)} LIMIT 1'")
+    results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)}'")
     results.each do |row|
       return row
     end
