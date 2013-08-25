@@ -9,7 +9,7 @@ end
 get '/test/?' do
   output = ""
   output << @header
-  output << partial(:warning)
+  output << partial(:new_warning)
   output << partial(:footer)
   output
 end

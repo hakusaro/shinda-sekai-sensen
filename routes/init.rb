@@ -12,6 +12,12 @@ before '/*' do
   end
 end
 
+before '/backstage/*' do
+  if (!session? || session[:type] != :admin) then
+    redirect to('/')
+  end
+end
+
 after '/*' do
   @db.disconnect
 end
@@ -19,3 +25,4 @@ end
 require_relative 'logins'
 require_relative 'warnings'
 require_relative 'misc'
+require_relative 'backstage'

@@ -59,7 +59,7 @@ class WarningDatabase
   end
 
   def ack_warning?(id)
-    @sql_client.query("UPDATE warnings SET ack=1, pin=null WHERE id=#{id}")
+    @sql_client.query("UPDATE warnings SET ack=1, pin=null, acktime='#{Time.now.to_i}' WHERE id=#{id}")
     if warning_exists?(id) then
       return false
     else
@@ -74,5 +74,24 @@ class WarningDatabase
     else
       return false
     end
+  end
+
+  def get_admin_details(email)
+    results = @sql_client.query("SELECT * FROM admins WHERE email='#{email}'")
+    results.each do |row|
+      return row
+    end
+  end
+
+  def add_warning_minecraft(target_name, message, admin_note, admin_id)
+    pin = Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s
+
+    while has_warning?(pin) do
+      pin = Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s
+    end
+
+    @sql_client.query("INSERT INTO warnings (id, target, admin, message, adminnote, sendtime, acktime, ack, pin, type)
+VALUES (null, '#{@sql_client.escape(target_name)}', '#{admin_id}', '#{@sql_client.escape(message)}', '#{@sql_client.escape(admin_note)}',
+'#{Time.now.to_i}', 0, 0, '#{pin}', 'mc')")
   end
 end

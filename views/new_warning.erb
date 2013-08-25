@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="large-12 columns">
+    <h1>Send a Warning</h1>
+  </div>
+  <hr />
+</div>
+<div class="row">
+  <div class="large-12 columns">
+    <form action="/backstage/warn/preview" method="post">
+      <fieldset>
+        <legend>Warning Creation</legend>
+        <div class="row">
+          <div class="large-12 columns">
+            <label>Username (case insensitive) OR SteamID OR Steam64 URL:</label>
+            <input type="text" name="username" placeholder="icetail98 or STEAM_0:1:19496236 or http://steamcommunity.com/profiles/76561197999258201">
+            <label>Message to send (supports <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>):</label>
+            <textarea name="message" placeholder="" style="height: 300px">Hi there.
+
+On a normal server, you might be banned for a short time or forever right now. On ShankShock, however, things operate differently.
+
+When you were on the server, you broke several pieces of wheat outside a farm. This is understandable - you were **probably hungry** and about to die. That's cool. I get that. But you can't just take other people's stuff.
+
+In the future, please refer to our [general community guidelines](http://wiki.shankshock.com/doku.php?id=community_guidelines) and specific [server rules](http://wiki.shankshock.com/doku.php?id=minecraft_server_information) before you accidentally make another mistake.
+
+Here are the specific rules you broke during your time on ShankShock:
+
+1. Rule 3. You broke another person's stuff and failed to replace it.
+
+This is **not a ban**. You will be able to re-join and continue playing after acknowledging this warning, but please be warned: Further rule breaking will result in a much harsher punishment the second time around.</textarea>
+            <label>Administrative Note (visible only to admins) (supports <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>):</label>
+            <textarea name="admin_note" placeholder="" style="height: 100px">I didn't see him online to I sent him a warning.
+He broke rules 1, 2, and 3.
+            </textarea>
+            <input type="submit" class="button" style="margin-left: auto; margin-right: auto; float: right" value="Preview Warning">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

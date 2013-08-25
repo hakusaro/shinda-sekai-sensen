@@ -34,6 +34,12 @@ get '/auth/gplus/callback/?' do
     session_start!
     session[:type] = :admin
     session[:user] = authentication_hash[:info][:email]
+    admin_info = @db.get_admin_details(authentication_hash[:info][:email])
+    session[:display_name] = admin_info['displayname']
+    session[:mojang] = admin_info['mojang']
+    session[:steam64] = admin_info['steam64']
+    session[:permissions] = admin_info['permissions']
+    session[:user_id] = admin_info['id']
     redirect to('/')
   else
     session_end!(true)
@@ -64,6 +70,23 @@ get '/auth/failure/?' do
               To solve this problem, we have deleted your session. Please attempt to login again.',
     link: '/auth/gplus/',
     link_text: 'Login Again'})
+  output << partial(:footer)
+  output
+end
+
+get '/login/unauthorized/?' do
+  session_end!(true)
+  output = ""
+  output << @header
+  output << partial(:generic, :locals => {
+    title: 'Unauthorized',
+    subhead: '',
+    message: 'Attempting to access that page resulted in failing authorization checks. Sorry about that.',
+    link: '/',
+    link_text: 'Return Home'
+    })
+  output << partial(:footer)
+  output
 end
 
 get '/logout/?' do
