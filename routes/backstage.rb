@@ -1,3 +1,11 @@
+get '/backstage/?' do
+  output = ""
+  output << @header
+  output << partial(:backstage)
+  output << partial(:footer)
+  output
+end
+
 get '/backstage/warn/?' do
   output = ""
   output << @header
