@@ -107,6 +107,8 @@ post '/backstage/flag/apply/?' do
   @db.add_log_entry($log_type[:flag_user], session[:user_id], "#{session[:display_name]} flagged #{target[:name]} as malicious.")
   @db.add_flag_minecraft('direct', target[:name], session[:user_id], target[:message])
 
+  session[:flag_target] = nil
+
   output = @header
   output << partial(:generic, :locals => {
     title: 'Flag Added',
@@ -128,4 +130,8 @@ get '/backstage/flag/saved/?' do
     })
   output << partial(:footer)
   output
+end
+
+get '/backstage/pry/?' do
+  binding.pry
 end
