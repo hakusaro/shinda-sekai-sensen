@@ -9,8 +9,7 @@ post '/login/pin/?' do
       session[:pin] = params[:pin]
       redirect to('/warning/view')
     else
-      output = ""
-      output << @header
+      output = @header
       output << partial(:generic, :locals => { title: 'Lookup Failed.',
         subhead: '',
         message: 'Unfortunately, the code you entered either went to something that was expired, or you typed an invalid one.
@@ -43,8 +42,7 @@ get '/auth/gplus/callback/?' do
     redirect to('/')
   else
     session_end!(true)
-    output = ""
-    output << @header
+    output = @header
     output << partial(:generic, :locals => {
       title: 'Login failed.',
       subhead: 'You aren\'t an admin!',
@@ -59,8 +57,7 @@ end
 
 get '/auth/failure/?' do
   session_end!(true)
-  output = ""
-  output << @header
+  output = @header
   output << partial(:generic, :locals => {
     title: 'Authentication Failure',
     subhead: 'OmniAuth does not know what to do.',
@@ -76,8 +73,7 @@ end
 
 get '/login/unauthorized/?' do
   session_end!(true)
-  output = ""
-  output << @header
+  output = @header
   output << partial(:generic, :locals => {
     title: 'Unauthorized',
     subhead: '',

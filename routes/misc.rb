@@ -1,6 +1,5 @@
 get '/' do
-  output = ""
-  output << @header
+  output = @header
   output << partial(:index)
   output << partial(:footer)
   output

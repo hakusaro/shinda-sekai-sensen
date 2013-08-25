@@ -1,22 +1,19 @@
 get '/backstage/?' do
-  output = ""
-  output << @header
+  output = @header
   output << partial(:backstage)
   output << partial(:footer)
   output
 end
 
 get '/backstage/warn/?' do
-  output = ""
-  output << @header
+  output =  @header
   output << partial(:new_warning)
   output << partial(:footer)
   output
 end
 
 get '/backstage/warn/preview/?' do
-  output = ""
-  output << @header
+  output = @header
   output << partial(:generic, :locals => {
     title: 'Error!',
     subhead: '',
@@ -31,8 +28,7 @@ end
 post '/backstage/warn/preview/?' do
   target = {name: params[:username], message: params[:message], admin_note: params[:admin_note]}
   session[:warning_target] = target
-  output = ""
-  output << @header
+  output = @header
   output << partial(:warning_preview, :locals => {
     admin_name: session[:display_name],
     send_time: Time.now.strftime('%D'),
@@ -54,8 +50,7 @@ get '/backstage/warn/apply/?' do
 
   session[:warning_target] = nil
 
-  output = ""
-  output << @header
+  output = @header
   output << partial(:generic, :locals => {
     title: 'Warning Added',
     subhead: 'A warning has been added.',
