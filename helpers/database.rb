@@ -1,4 +1,18 @@
 class WarningDatabase
+  # Public: Constructor
+  #
+  # username - The database username to connect to.
+  # password - The password used during the auth process.
+  # hostname - The host of the MySQL server.
+  # port     - The port MySQL is running on.
+  # database - The name of the database to connect to.
+  #
+  # Examples
+  #
+  #   db = WarningDatabase.new('root', '', 'localhost', 3306, 'shinda')
+  #   db.connect
+  #   
+  # Returns a new WarningDatabase that isn't connected.
   def initialize(username, password, hostname, port, database)
     @username = username
     @password = password
@@ -7,6 +21,7 @@ class WarningDatabase
     @database = database
   end
 
+  # Public: Connects to the MySQL server.
   def connect
     @sql_client = Mysql2::Client.new(:host => @hostname,
     :username => @username,
@@ -17,10 +32,21 @@ class WarningDatabase
     :reconnect => true)
   end
 
+  #Public: Disconnects from the MySQL server.
   def disconnect
     @sql_client.close
   end
 
+  # Public: Determines if a warning exists with the given pin number.
+  #
+  # pin - The pin number.
+  #
+  # Examples
+  #
+  #   db.has_warning?(1234)
+  #   # => true
+  #
+  # Returns if a warning exists at that pin code.
   def has_warning?(pin)
     results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)}'")
     # Formatador.display_table(results)
@@ -36,6 +62,20 @@ class WarningDatabase
     end
   end
 
+  # Public: Checks to see if a warning exists at a given unique ID.
+  #
+  # text  - This checks to see if a warning exists at a given unique ID.
+  #
+  # Examples
+  #
+  #   db.warning_exists?(12)
+  #   # => true
+  #
+  # While similar to has_warning, this method is used to check if a unique warning exists that
+  # may or may not be acknowledged. This is useful if getting an old warning or determining if
+  # an existing one is acknowledged or not.
+  # 
+  # A warning may not have a pin.
   def warning_exists?(id)
     results = @sql_client.query("SELECT * FROM warnings WHERE id=#{id}")
     if results.count > 0 then
@@ -51,6 +91,26 @@ class WarningDatabase
     end
   end
 
+  # Public: Gets a warning from the database using a pin code.
+  #
+  # pin - The warning's associated pin.
+  #
+  # Examples
+  #
+  #   db.get_warning(1234)
+  #   # => {"id"=>4,
+  #   "target"=>"test",
+  #   "admin"=>"1",
+  #   "message"=>"hello",
+  #   "adminnote"=>"test",
+  #   "sendtime"=>"1377420541",
+  #   "acktime"=>"1377421258",
+  #   "ack"=>true,
+  #   "pin"=>"1234",
+  #   "type"=>"mc"}
+  #
+  # Returns a hash containing id (database id), target (playername), admin (admin id), adminnote (text),
+  # sendtime (unix epoch), acktime (unix epoch), ack (true/false), pin (int), type (mc/steam)
   def get_warning(pin)
     results = @sql_client.query("SELECT * FROM warnings WHERE pin='#{@sql_client.escape(pin)}'")
     results.each do |row|
@@ -58,6 +118,16 @@ class WarningDatabase
     end
   end
 
+  # Public: Acknowledge a warning.
+  #
+  # id - The warning to acknowledge.
+  #
+  # Examples
+  #
+  #   ack_warning?(1)
+  #   # => true
+  #
+  # Returns if the acknowledgement was a success.
   def ack_warning?(id)
     @sql_client.query("UPDATE warnings SET ack=1, pin=null, acktime='#{Time.now.to_i}' WHERE id=#{id}")
     if warning_exists?(id) then
