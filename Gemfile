@@ -9,3 +9,4 @@ gem 'omniauth', "~> 1.1.4"
 gem 'omniauth-gplus', '~> 1.0'
 gem 'rdiscount'
 gem 'pry'
+gem 'thin'
