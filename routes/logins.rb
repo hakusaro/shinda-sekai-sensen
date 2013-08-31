@@ -32,14 +32,15 @@ get '/auth/gplus/callback/?' do
   if @db.is_admin?(authentication_hash[:info][:email]) then
     session_start!
     session[:type] = :admin
-    session[:user] = authentication_hash[:info][:email]
     admin_info = @db.get_admin_details(authentication_hash[:info][:email])
-    session[:display_name] = admin_info['displayname']
-    session[:mojang] = admin_info['mojang']
-    session[:steam64] = admin_info['steam64']
-    session[:permissions] = admin_info['permissions']
-    session[:user_id] = admin_info['id']
-    @db.add_log_entry($log_type[:web_login], session[:user_id], "#{session[:display_name]} logged into Shinda Sekai Sensen.")
+    session[:admin_user] = AdminUser.new(admin_info['id'],
+     admin_info['display_name'],
+     admin_info['mojang'],
+     admin_info['steam64'],
+     admin_info['permissions'],
+     authentication_hash[:info][:email])
+
+    @db.add_log_entry($log_type[:web_login], session[:admin_user].admin_id, "#{session[:admin_user].display_name} logged into Shinda Sekai Sensen.")
     redirect to('/')
   else
     session_end!(true)
@@ -87,7 +88,7 @@ get '/login/unauthorized/?' do
 end
 
 get '/logout/?' do
-  @db.add_log_entry($log_type[:web_logout], session[:user_id], "#{session[:display_name]} logged out of Shinda Sekai Sensen.")
+  @db.add_log_entry($log_type[:web_logout], session[:admin_user].admin_id, "#{session[:admin_user].display_name} logged out of Shinda Sekai Sensen.")
   session_end!(true)
   redirect to('/')
 end

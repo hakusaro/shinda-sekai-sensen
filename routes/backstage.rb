@@ -1,5 +1,5 @@
 get '/backstage/?' do
-  @db.add_log_entry($log_type[:view_backstage], session[:user_id], "#{session[:display_name]} viewed the backstage index.")
+  @db.add_log_entry($log_type[:view_backstage], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the backstage index.")
   output = @header
   output << partial(:backstage)
   output << partial(:footer)
@@ -7,7 +7,7 @@ get '/backstage/?' do
 end
 
 get '/backstage/warn/?' do
-  @db.add_log_entry($log_type[:view_new_warning], session[:user_id], "#{session[:display_name]} viewed the warning creation page.")
+  @db.add_log_entry($log_type[:view_new_warning], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the warning creation page.")
   output = @header
   output << partial(:new_warning)
   output << partial(:footer)
@@ -15,7 +15,7 @@ get '/backstage/warn/?' do
 end
 
 get '/backstage/warn/saved/?' do
-  @db.add_log_entry($log_type[:view_new_warning], session[:user_id], "#{session[:display_name]} viewed the warning creation post error page.")
+  @db.add_log_entry($log_type[:view_new_warning], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the warning creation post error page.")
   output = @header
   output << partial(:new_warning_post, :locals => {
     target_username: session[:warning_target][:name],
@@ -55,7 +55,7 @@ post '/backstage/warn/preview/?' do
 
   output = @header
   output << partial(:warning_preview, :locals => {
-    admin_name: session[:display_name],
+    admin_name: session[:admin_user].display_name,
     send_time: Time.now.strftime('%D'),
     player_name: target[:name],
     message: markdown(target[:message])
@@ -71,8 +71,8 @@ get '/backstage/warn/apply/?' do
     redirect to('/backstage/warn/saved/')
   end
 
-  @db.add_log_entry($log_type[:send_warning], session[:user_id], "#{session[:display_name]} sent a warning to #{target[:name]}.")
-  @db.add_warning_minecraft(target[:name], target[:message], target[:admin_note], session[:user_id])
+  @db.add_log_entry($log_type[:send_warning], session[:admin_user].admin_id, "#{session[:admin_user].display_name} sent a warning to #{target[:name]}.")
+  @db.add_warning_minecraft(target[:name], target[:message], target[:admin_note], session[:admin_user].admin_id)
 
   session[:warning_target] = nil
 
@@ -90,7 +90,7 @@ get '/backstage/warn/apply/?' do
 end
 
 get '/backstage/flag/?' do
-  @db.add_log_entry($log_type[:view_new_flag], session[:user_id], "#{session[:display_name]} viewed the flag creation page.")
+  @db.add_log_entry($log_type[:view_new_flag], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the flag creation page.")
   output = @header
   output << partial(:flag_add)
   output << partial(:footer)
@@ -104,8 +104,8 @@ post '/backstage/flag/apply/?' do
     redirect to('/backstage/flag/saved/?')
   end
 
-  @db.add_log_entry($log_type[:flag_user], session[:user_id], "#{session[:display_name]} flagged #{target[:name]} as malicious.")
-  @db.add_flag_minecraft('direct', target[:name], session[:user_id], target[:message])
+  @db.add_log_entry($log_type[:flag_user], session[:admin_user].admin_id, "#{session[:admin_user].display_name} flagged #{target[:name]} as malicious.")
+  @db.add_flag_minecraft('direct', target[:name], session[:admin_user].admin_id, target[:message])
 
   session[:flag_target] = nil
 
@@ -122,7 +122,7 @@ post '/backstage/flag/apply/?' do
 end
 
 get '/backstage/flag/saved/?' do
-  @db.add_log_entry($log_type[:view_new_flag], session[:user_id], "#{session[:display_name]} viewed the flag creation post error page.")
+  @db.add_log_entry($log_type[:view_new_flag], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the flag creation post error page.")
   output = @header
   output << partial(:flag_add_post, :locals => {
     name: session[:flag_target][:name],
