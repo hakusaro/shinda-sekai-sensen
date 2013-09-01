@@ -12,7 +12,7 @@ before '/*' do
   end
 end
 
-before '/backstage/*' do
+before '/backstage*' do
   if (!session? || session[:type] != :admin) then
     redirect to('/')
   end
