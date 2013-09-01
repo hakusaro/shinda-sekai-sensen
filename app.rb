@@ -51,9 +51,9 @@ set :logging => true,
   :partial_template_engine => :erb
 
 if settings.environment == :production then
-  set :logging => false,
-    :dump_errors => false,
-    :raise_errors => false
+  # set :logging => false,
+  #   :dump_errors => false,
+  #   :raise_errors => false
 end
 
 set :db_settings,
