@@ -34,7 +34,7 @@ get '/auth/gplus/callback/?' do
     session[:type] = :admin
     admin_info = @db.get_admin_details(authentication_hash[:info][:email])
     session[:admin_user] = AdminUser.new(admin_info['id'],
-     admin_info['display_name'],
+     admin_info['displayname'],
      admin_info['mojang'],
      admin_info['steam64'],
      admin_info['permissions'],

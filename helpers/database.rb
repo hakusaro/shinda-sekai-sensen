@@ -181,4 +181,8 @@ VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to
     @sql_client.query("INSERT INTO logs (id, type, aid, time, message) VALUES (null, #{type}, #{aid}, #{Time.now.to_i}, '#{msg}')")
   end
 
+  def get_logs(limit)
+    @sql_client.query("SELECT * FROM logs ORDER BY id DESC LIMIT #{limit}")
+  end
+
 end

@@ -19,10 +19,11 @@ error do
   output
 end
 
-# get '/test/?' do
-#   output = ""
-#   output << @header
-#   output << partial(:not_found)
-#   output << partial(:footer)
-#   output
-# end
+get '/test/?' do
+  log_dump = db.get_logs(50000)
+  output = ""
+  output << @header
+  output << partial(:logs, :locals => {log_dump: log_dump})
+  output << partial(:footer)
+  output
+end

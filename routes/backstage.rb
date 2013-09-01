@@ -132,6 +132,15 @@ get '/backstage/flag/saved/?' do
   output
 end
 
+get '/backstage/logs/?' do
+  log_dump = @db.get_logs(50000)
+  output = ""
+  output << @header
+  output << partial(:logs, :locals => {log_dump: log_dump})
+  output << partial(:footer)
+  output
+end
+
 get '/backstage/pry/?' do
   binding.pry
 end
