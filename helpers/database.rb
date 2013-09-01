@@ -174,7 +174,7 @@ class WarningDatabase
       pin = Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s + Random.rand(9).to_s
     end
 
-    @sql_client.query("INSERT INTO warnings (id, target, admin, message, adminnote, sendtime, acktime, ack, pin, type)
+    @sql_client.query("INSERT INTO warnings (id, target, aid, message, adminnote, sendtime, acktime, ack, pin, type)
 VALUES (null, '#{@sql_client.escape(target_name)}', '#{admin_id}', '#{@sql_client.escape(message)}', '#{@sql_client.escape(admin_note)}',
 '#{Time.now.to_i}', 0, 0, '#{pin}', 'mc')")
   end

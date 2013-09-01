@@ -141,7 +141,7 @@ get '/backstage/warnings/?' do
   admins = @db.get_admins
   log_dump.each do |row|
     admins.each do |admin|
-      if admin['id'] == row['admin'] then
+      if admin['id'] == row['aid'] then
         row['admin_name'] = admin['displayname']
       end
     end
@@ -179,7 +179,7 @@ get '/backstage/user/:user/?' do
   admins = @db.get_admins
   warnings.each do |row|
     admins.each do |admin|
-      if admin['id'] == row['admin'] then
+      if admin['id'] == row['aid'] then
         row['admin_name'] = admin['displayname']
       end
     end

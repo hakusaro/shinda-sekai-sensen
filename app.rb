@@ -27,9 +27,23 @@ File.open('config.yaml', 'r').each_line do |line|
 end
 
 app_config = YAML.load(temp_config)
+
+if (ENV['environment'] ? ENV['environment'].to_sym : :dev == :production) then
+  app_config['db_user'] = ENV['db_user']
+  app_config['db_pass'] = ENV['db_pass']
+  app_config['db_host'] = ENV['db_host']
+  app_config['db_port'] = ENV['db_port']
+  app_config['db_name'] = ENV['db_name']
+  app_config['session_secret'] = ENV['session_secret']
+  set :environment => :production
+else
+  set :environment => :dev
+  set :bind => '0.0.0.0'
+  set :port => 4567
+end
+
 set :logging => true,
   :dump_errors => true,
-  :environment => :dev,
   :raise_errors => true,
   :session_secret => app_config['session_secret'],
   :partial_template_engine => :erb
@@ -39,12 +53,12 @@ if settings.environment == :production then
     :dump_errors => false,
     :raise_errors => false
 end
+
 set :db_settings,
 {:user => app_config['db_user'],
 :password => app_config['db_pass'],
 :host => app_config['db_host'],
 :port => app_config['db_port'],
-:bind => '0.0.0.0',
 :database => app_config['db_name']}
 
 
