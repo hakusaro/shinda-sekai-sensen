@@ -1,0 +1,9 @@
+environment: ''
+session_secret: ''
+db_user: ''
+db_pass: ''
+db_host: ''
+db_port: 0000
+db_name: ''
+google_user_token: ''
+google_token_secret: ''
