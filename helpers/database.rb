@@ -200,4 +200,8 @@ VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to
     @sql_client.query("SELECT * FROM warnings ORDER BY id DESC LIMIT #{limit}")
   end
 
+  def get_admins
+    @sql_client.query("SELECT * FROM admins")
+  end
+
 end

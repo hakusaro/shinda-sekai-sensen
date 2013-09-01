@@ -141,6 +141,23 @@ get '/backstage/logs/?' do
   output
 end
 
+get '/backstage/warnings/?' do
+  log_dump = @db.get_warnings(50000)
+  admins = @db.get_admins
+  log_dump.each do |row|
+    admins.each do |admin|
+      if admin['id'] == row['admin'].to_i then # Note to self: just fix the fucking table instead of doing this shit...
+        row['admin_name'] = admin['displayname']
+      end
+    end
+  end
+  output = ""
+  output << @header
+  output << partial(:warnings, :locals => {log_dump: log_dump})
+  output << partial(:footer)
+  output
+end
+
 get '/backstage/pry/?' do
   binding.pry
 end
