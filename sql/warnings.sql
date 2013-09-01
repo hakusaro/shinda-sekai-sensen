@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 01, 2013 at 07:50 AM
+-- Generation Time: Sep 01, 2013 at 10:22 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.3.10-1ubuntu3.7
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `warnings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `target` varchar(128) NOT NULL,
-  `admin` int(11) NOT NULL,
+  `aid` int(11) NOT NULL,
   `message` text NOT NULL,
   `adminnote` text NOT NULL,
   `sendtime` varchar(128) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `warnings` (
   `pin` varchar(4) NOT NULL,
   `type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

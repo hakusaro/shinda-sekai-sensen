@@ -198,10 +198,15 @@ get '/backstage/user/:user/?' do
   output << partial(:lookup, :locals => {user: user, warnings: warnings, flags: flags})
   output << partial(:footer)
   output
-  # We need to show the user the username
-  # All warnings (and if they're active or not)
-  # All flags
-  # We need to provide methods for sending warnings
-  # We need to provide methods for adding flags
-  # This should cross check to verify that the user is valid and that they exist in Shinda Sekai Sensen already.
+end
+
+post '/backstage/user/?' do
+  redirect to('/backstage/user/' + params['user'])
+end
+
+get '/backstage/user/?' do
+  output = @header
+  output << partial(:lookup_form)
+  output << partial(:footer)
+  output
 end
