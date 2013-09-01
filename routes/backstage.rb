@@ -1,5 +1,4 @@
 get '/backstage/?' do
-  @db.add_log_entry($log_type[:view_backstage], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the backstage index.")
   output = @header
   output << partial(:backstage)
   output << partial(:footer)
@@ -7,7 +6,6 @@ get '/backstage/?' do
 end
 
 get '/backstage/warn/?' do
-  @db.add_log_entry($log_type[:view_new_warning], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the warning creation page.")
   output = @header
   output << partial(:new_warning)
   output << partial(:footer)
@@ -15,7 +13,6 @@ get '/backstage/warn/?' do
 end
 
 get '/backstage/warn/saved/?' do
-  @db.add_log_entry($log_type[:view_new_warning], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the warning creation post error page.")
   output = @header
   output << partial(:new_warning_post, :locals => {
     target_username: session[:warning_target][:name],
@@ -90,7 +87,6 @@ get '/backstage/warn/apply/?' do
 end
 
 get '/backstage/flag/?' do
-  @db.add_log_entry($log_type[:view_new_flag], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the flag creation page.")
   output = @header
   output << partial(:flag_add)
   output << partial(:footer)
@@ -122,7 +118,6 @@ post '/backstage/flag/apply/?' do
 end
 
 get '/backstage/flag/saved/?' do
-  @db.add_log_entry($log_type[:view_new_flag], session[:admin_user].admin_id, "#{session[:admin_user].display_name} viewed the flag creation post error page.")
   output = @header
   output << partial(:flag_add_post, :locals => {
     name: session[:flag_target][:name],
@@ -150,6 +145,7 @@ get '/backstage/warnings/?' do
         row['admin_name'] = admin['displayname']
       end
     end
+    row['adminnote'] = markdown(row['adminnote'])
   end
   output = ""
   output << @header
@@ -167,6 +163,7 @@ get '/backstage/flags/?' do
         row['admin_name'] = admin['displayname']
       end
     end
+    row['message'] = markdown(row['message'])
   end
   output = ""
   output << @header
@@ -175,6 +172,36 @@ get '/backstage/flags/?' do
   output
 end
 
-get '/backstage/pry/?' do
-  binding.pry
+get '/backstage/user/:user/?' do
+  user = params[:user]
+  warnings = @db.get_warnings_for_target(user)
+  flags = @db.get_flags_for_target(user)
+  admins = @db.get_admins
+  warnings.each do |row|
+    admins.each do |admin|
+      if admin['id'] == row['admin'] then
+        row['admin_name'] = admin['displayname']
+      end
+    end
+    row['message'] = markdown(row['message'])
+    row['adminnote'] = markdown(row['adminnote'])
+  end
+  flags.each do |row|
+    admins.each do |admin|
+      if admin['id'] == row['aid'] then
+        row['admin_name'] = admin['displayname']
+      end
+    end
+    row['message'] = markdown(row['message'])
+  end
+  output = @header
+  output << partial(:lookup, :locals => {user: user, warnings: warnings, flags: flags})
+  output << partial(:footer)
+  output
+  # We need to show the user the username
+  # All warnings (and if they're active or not)
+  # All flags
+  # We need to provide methods for sending warnings
+  # We need to provide methods for adding flags
+  # This should cross check to verify that the user is valid and that they exist in Shinda Sekai Sensen already.
 end

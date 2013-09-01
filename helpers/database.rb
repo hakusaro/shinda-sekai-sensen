@@ -204,4 +204,12 @@ VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to
     @sql_client.query("SELECT * FROM admins")
   end
 
+  def get_warnings_for_target(user)
+    @sql_client.query("SELECT * FROM warnings WHERE target='#{user}'")
+  end
+
+  def get_flags_for_target(user)
+    @sql_client.query("SELECT * FROM flags WHERE mojang='#{user}' OR steam64='#{user}'")
+  end
+
 end
