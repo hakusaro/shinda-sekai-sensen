@@ -27,6 +27,11 @@ get '/login/pin/?' do
   redirect to('/')
 end
 
+post '/auth/steam/callback/?' do
+  authentication_hash = request.env['omniauth.auth']
+  ap authentication_hash
+end
+
 get '/auth/gplus/callback/?' do
   authentication_hash = request.env['omniauth.auth']
   if @db.is_admin?(authentication_hash[:info][:email]) then

@@ -153,6 +153,13 @@ class WarningDatabase
     end
   end
 
+  def get_admin_details_using_steam(steamid)
+    results = @sql_client.query("SELECT * FROM admins WHERE steam64='#{steamid}'")
+    results.each do |row|
+      return row
+    end
+  end
+
   def get_admin_for_id(id)
     results = @sql_client.query("SELECT * FROM admins WHERE id='#{id}'")
     results.each do |row|
