@@ -29,14 +29,14 @@ end
 app_config = YAML.load(temp_config)
 
 if (ENV['environment'] ? ENV['environment'].to_sym : :dev == :production) then
-  app_config['db_user'] = ENV['db_user']
-  app_config['db_pass'] = ENV['db_pass']
-  app_config['db_host'] = ENV['db_host']
-  app_config['db_port'] = ENV['db_port']
-  app_config['db_name'] = ENV['db_name']
-  app_config['google_user_token'] = ENV['google_user_token']
-  app_config['google_token_secret'] = ENV['google_token_secret']
-  app_config['session_secret'] = ENV['session_secret']
+  app_config['db_user'] = ENV['db_user'].to_s
+  app_config['db_pass'] = ENV['db_pass'].to_s
+  app_config['db_host'] = ENV['db_host'].to_s
+  app_config['db_port'] = ENV['db_port'].to_i
+  app_config['db_name'] = ENV['db_name'].to_s
+  app_config['google_user_token'] = ENV['google_user_token'].to_s
+  app_config['google_token_secret'] = ENV['google_token_secret'].to_s
+  app_config['session_secret'] = ENV['session_secret'].to_s
   set :environment => :production
 else
   set :environment => :dev
