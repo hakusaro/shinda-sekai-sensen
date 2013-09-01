@@ -34,6 +34,8 @@ if (ENV['environment'] ? ENV['environment'].to_sym : :dev == :production) then
   app_config['db_host'] = ENV['db_host']
   app_config['db_port'] = ENV['db_port']
   app_config['db_name'] = ENV['db_name']
+  app_config['google_user_token'] = ENV['google_user_token']
+  app_config['google_token_secret'] = ENV['google_token_secret']
   app_config['session_secret'] = ENV['session_secret']
   set :environment => :production
 else
