@@ -27,7 +27,6 @@ File.open('config.yaml', 'r').each_line do |line|
 end
 
 app_config = YAML.load(temp_config)
-ap app_config
 set :logging => true,
   :dump_errors => true,
   :environment => :dev,
