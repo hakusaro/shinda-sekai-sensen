@@ -146,7 +146,7 @@ get '/backstage/warnings/?' do
   admins = @db.get_admins
   log_dump.each do |row|
     admins.each do |admin|
-      if admin['id'] == row['admin'].to_i then # Note to self: just fix the fucking table instead of doing this shit...
+      if admin['id'] == row['admin'] then
         row['admin_name'] = admin['displayname']
       end
     end

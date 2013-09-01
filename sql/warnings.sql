@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 08, 2013 at 05:43 PM
+-- Generation Time: Sep 01, 2013 at 07:50 AM
 -- Server version: 5.5.32
--- PHP Version: 5.4.17
+-- PHP Version: 5.3.10-1ubuntu3.7
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `test`
+-- Database: `shinda`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `warnings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `target` varchar(128) NOT NULL,
-  `admin` varchar(128) NOT NULL,
+  `admin` int(11) NOT NULL,
   `message` text NOT NULL,
   `adminnote` text NOT NULL,
   `sendtime` varchar(128) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `warnings` (
   `pin` varchar(4) NOT NULL,
   `type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
