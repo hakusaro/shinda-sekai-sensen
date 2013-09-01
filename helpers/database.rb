@@ -185,4 +185,12 @@ VALUES (null, '#{type}', '#{@sql_client.escape(mojang)}', #{aid}, '#{Time.now.to
     @sql_client.query("SELECT * FROM logs ORDER BY id DESC LIMIT #{limit}")
   end
 
+  def get_flags(limit)
+    @sql_client.query("SELECT * FROM flags ORDER BY id DESC LIMIT #{limit}")
+  end
+
+  def get_warnings(limit)
+    @sql_client.query("SELECT * FROM warnings ORDER BY id DESC LIMIT #{limit}")
+  end
+
 end
