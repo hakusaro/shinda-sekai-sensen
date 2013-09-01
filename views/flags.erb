@@ -1,7 +1,7 @@
 <div class="row">
   <div class="large-12 columns">
     <h2>Flags</h2>
-    <h5 class="subheader">Showing all malicious flags for all players.</h5>
+    <h5 class="subheader">Showing all flags for all players.</h5>
   </div>
   <hr />
 </div>
@@ -10,21 +10,21 @@
     <table style="margin-left: auto; margin-right: auto">
       <thead>
         <tr>
-          <th style="width: 10%">Target</th>
+          <th style="width: 10%">Mojang</th>
+          <th style="width: 10%">Steam</th>
           <th style="width: 10%">Admin</th>
-          <th style="width: 10%">Sent</th>
-          <th style="width: 10%">Ack'd</th>
-          <th style="width: 60%">Admin Note</th>
+          <th style="width: 10%">Date</th>
+          <th style="width: 60%">Admin Message</th>
         </tr>
       </thead>
       <tbody>
         <% log_dump.each do |row| %>
         <tr>
-          <td><%= row['target'] %></td>
+          <td><%= row['mojang'].length > 0 ? row['mojang'] : "None" %></td>
+          <td><%= row['steam64'].length > 0 ? row['steam64'] : "None" %></td>
           <td><%= row['admin_name'] %></td>
-          <td><%= Time.at(row['sendtime'].to_i).strftime('%D') %></td>
-          <td><%= row['acktime'].to_i == 0 ? "Never" : Time.at(row['acktime'].to_i).strftime('%D') %></td>
-          <td><%= row['adminnote'] %></td>
+          <td><%= row['date'].to_i == 0 ? "Imported" : Time.at(row['date'].to_i).strftime('%D') %></td>
+          <td><%= row['message'] %></td>
         </tr>
         <% end %>
       </tbody>

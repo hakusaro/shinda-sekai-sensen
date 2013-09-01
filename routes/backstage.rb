@@ -158,6 +158,23 @@ get '/backstage/warnings/?' do
   output
 end
 
+get '/backstage/flags/?' do
+  log_dump = @db.get_flags(50000)
+  admins = @db.get_admins
+  log_dump.each do |row|
+    admins.each do |admin|
+      if admin['id'] == row['aid'] then
+        row['admin_name'] = admin['displayname']
+      end
+    end
+  end
+  output = ""
+  output << @header
+  output << partial(:flags, :locals => {log_dump: log_dump})
+  output << partial(:footer)
+  output
+end
+
 get '/backstage/pry/?' do
   binding.pry
 end
