@@ -38,6 +38,8 @@ Currently, there are several design problems that will be addressed before a ful
 * Some database fields are setup to support Steam.
 * Some code is ShankShock specific.
 * Some code is Heroku specific.
+* Only supports Google+ authentication right now.
+  * Planning on supporting Steam authentication as an alternative.
 
 This is a proof of concept for the idea of Shinda Sekai Sensen and an attempt to solve the problems above. It is being used at [ShankShock](http://shankshock.com/) on a full time basis in order to test, but will be available for the community in a supported form soon.
 
