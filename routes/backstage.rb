@@ -207,6 +207,38 @@ get '/backstage/user/:user/?' do
   output
 end
 
+get '/backstage/flag/import/?' do
+  if (session[:admin_user].permissions < 3) then
+    redirect to('/')
+  end
+  output = @header
+  output << partial(:import)
+  output << partial(:footer)
+  output
+end
+
+post '/backstage/flag/import/?' do
+  if (session[:admin_user].permissions < 3) then
+    redirect to('/')
+  end
+  data = params[:csv]
+  @db.add_log_entry($log_type[:import_flags], session[:admin_user].admin_id, "#{session[:admin_user].display_name} imported a set of flags.")
+  data.each_line do |line|
+    ban = line.split(',')
+    @db.add_flag_minecraft('mc', ban[0], session[:admin_user].admin_id, "**Original reason**: " + ban[1] + ".\n**Original banner**: " + ban[2])
+  end
+  output = @header
+  output << partial(:generic, :locals => {
+    title: 'Flags imported.',
+    subhead: 'Success.',
+    message: 'All flags imported cleanly.',
+    link: '/backstage/',
+    link_text: 'Return to backstage index'
+    })
+  output << partial(:footer)
+  output
+end
+
 post '/backstage/user/?' do
   redirect to('/backstage/user/' + params['user'])
 end
