@@ -1,6 +1,6 @@
 # Shinda Sekai Sensen
 
-Shinda Sekai Sensen is a project designed to remove the chrome from Minecraft player administration.
+Shinda Sekai Sensen (literally. Afterlife War Front) is a project designed to remove the chrome from Minecraft player administration.
 
 ## The Problem
 
@@ -35,6 +35,9 @@ Currently, there are several design problems that will be addressed before a ful
 * Inconsistent database names.
 * Inconsistent data access.
   * Inconsistent model use and access.
+* Some database fields are setup to support Steam.
+* Some code is ShankShock specific.
+* Some code is Heroku specific.
 
 This is a proof of concept for the idea of Shinda Sekai Sensen and an attempt to solve the problems above. It is being used at [ShankShock](http://shankshock.com/) on a full time basis in order to test, but will be available for the community in a supported form soon.
 
