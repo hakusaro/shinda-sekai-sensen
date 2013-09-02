@@ -20,8 +20,8 @@
       <tbody>
         <% log_dump.each do |row| %>
         <tr>
-          <td><%= row['mojang'].length > 0 ? row['mojang'] : "None" %></td>
-          <td><%= row['steam64'].length > 0 ? row['steam64'] : "None" %></td>
+          <td><a href="<%= url('/backstage/user/' + row['mojang']) %>"><%= row['mojang'].length > 0 ? row['mojang'] : "None" %></a></td>
+          <td><a href="<%= url('/backstage/user/' + row['steam64']) %>"><%= row['steam64'].length > 0 ? row['steam64'] : "None" %></a></td>
           <td><%= row['admin_name'] %></td>
           <td><%= row['date'].to_i == 0 ? "Imported" : Time.at(row['date'].to_i).strftime('%D') %></td>
           <td><%= row['message'] %></td>

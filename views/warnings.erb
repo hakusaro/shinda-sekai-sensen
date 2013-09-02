@@ -20,7 +20,7 @@
       <tbody>
         <% log_dump.each do |row| %>
         <tr>
-          <td><%= row['target'] %></td>
+          <td><a href="<%= url('/backstage/user/' + row['target']) %>"><%= row['target'] %></a></td>
           <td><%= row['admin_name'] %></td>
           <td><%= Time.at(row['sendtime'].to_i).strftime('%D') %></td>
           <td><%= row['acktime'].to_i == 0 ? "Never" : Time.at(row['acktime'].to_i).strftime('%D') %></td>
