@@ -18,7 +18,14 @@ Only after a player has been shown or exhibits actions that are offensive can th
 
 Because all actions take place on the website, admins are encouraged to use long, thought out warning and ban reasons to convey better messages than a simple ban reason provides. In short, it allows for better reasons easier and better players.
 
-## This App
+### Pitfalls
+
+* Admins may not care enough to use it.
+* Admins may ignore warnings and just flag bad players.
+* Admins may abuse players more ingame.
+* Admins may leave the community after being introduced to this.
+
+## This thing
 
 This was my first Ruby app, and first Sinatra application. It contains some files needed to assemble the database, build, and execute the app. However, it is not in a stable form. It **should not be used** on a server that isn't willing to face bugs, such as:
 
@@ -40,6 +47,7 @@ Currently, there are several design problems that will be addressed before a ful
 * Some code is Heroku specific.
 * Only supports Google+ authentication right now.
   * Planning on supporting Steam authentication as an alternative.
+* Very little is documented. Existing documentation is using TomDoc.
 
 This is a proof of concept for the idea of Shinda Sekai Sensen and an attempt to solve the problems above. It is being used at [ShankShock](http://shankshock.com/) on a full time basis in order to test, but will be available for the community in a supported form soon.
 
