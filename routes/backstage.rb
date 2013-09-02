@@ -128,7 +128,14 @@ get '/backstage/flag/saved/?' do
 end
 
 get '/backstage/logs/?' do
-  log_dump = @db.get_logs(50000)
+  log_dump = @db.get_logs(50000).to_a
+  log_dump.delete_if do |row|
+    if row['type'] == $log_type[:web_login] || row['type'] == $log_type[:web_logout] then
+      true
+    else
+      false
+    end
+  end
   output = ""
   output << @header
   output << partial(:logs, :locals => {log_dump: log_dump})
