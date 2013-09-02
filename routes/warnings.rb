@@ -5,7 +5,7 @@ get '/warning/view/?' do
       session[:warning_info] = warning_info
       today = Time.now.strftime('%D')
       send_time = Time.at(warning_info['sendtime'].to_i).strftime('%D')
-      admin = @db.get_admin_for_id(warning_info['admin'])
+      admin = @db.get_admin_for_id(warning_info['aid'])
       admin_name = admin['displayname']
       output = @header
       output << partial(:warning, :locals => {
